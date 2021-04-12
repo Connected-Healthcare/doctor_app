@@ -1,3 +1,4 @@
+import 'package:doctor_app/screen/setting/user.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -17,26 +18,8 @@ class SettingsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        // Add User card
-        Card(
-          child: ListTile(
-            leading: Icon(Icons.add),
-            title: Text("Add User"),
-          ),
-        ),
-
-        Card(
-          child: ExpansionTile(
-            initiallyExpanded: true,
-            title: Text("Stored Users"),
-            children: [
-              ListTile(
-                leading: Icon(Icons.supervised_user_circle),
-                title: Text("RLOC5000"),
-              )
-            ],
-          ),
-        )
+        AddUser(),
+        ListUsers(),
 
         // END
       ],
