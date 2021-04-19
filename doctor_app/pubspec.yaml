@@ -33,6 +33,12 @@ dependencies:
   # State Management
   provider: ^4.3.3
 
+  # Firebase
+  firebase_database: ^6.1.1
+
+  # Charts
+  fl_chart: ^0.30.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
