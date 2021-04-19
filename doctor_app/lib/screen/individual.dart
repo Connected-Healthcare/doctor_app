@@ -1,3 +1,4 @@
+import 'package:doctor_app/individual/screen/chart.dart';
 import 'package:flutter/material.dart';
 
 class IndividualScreen extends StatelessWidget {
@@ -10,15 +11,7 @@ class IndividualScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("$individual"),
       ),
-      body: IndividualBody(),
+      body: IndividualChartScreen(this.individual),
     );
-  }
-}
-
-// TODO, Subscribe to firebase and render charts here
-class IndividualBody extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
