@@ -15,15 +15,35 @@ class _ClientAlertScreenState extends State<ClientAlertScreen> {
       stream: FirebaseDatabase.instance.reference().child("alerts").onValue,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Container();
+          return LinearProgressIndicator();
         }
 
         var filteredData = _processAlertSnapshot(snapshot.data);
+        if (filteredData.isEmpty) {
+          return Card(
+            child: ListTile(
+              leading: Icon(
+                Icons.admin_panel_settings_rounded,
+                color: Colors.green,
+              ),
+              title: Text("No Alerts"),
+            ),
+          );
+        }
+
         return ListView(
           children: [
             for (var k in filteredData.keys)
               Card(
                 child: ListTile(
+                  leading: Icon(
+                    Icons.add_alert_rounded,
+                    color: Colors.red,
+                  ),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () => _onDeleteAlert(k),
+                  ),
                   title: Text(
                       "Received alert from $k at ${DateTime.fromMillisecondsSinceEpoch(filteredData[k])}"),
                 ),
@@ -57,5 +77,13 @@ class _ClientAlertScreenState extends State<ClientAlertScreen> {
     }
 
     return filteredData;
+  }
+
+  void _onDeleteAlert(String user) async {
+    await FirebaseDatabase.instance
+        .reference()
+        .child("alerts")
+        .child(user)
+        .set(null);
   }
 }
