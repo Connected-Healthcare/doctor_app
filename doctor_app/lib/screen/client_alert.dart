@@ -9,10 +9,12 @@ class ClientAlertScreen extends StatefulWidget {
 }
 
 class _ClientAlertScreenState extends State<ClientAlertScreen> {
+  static const String AlertTopic = "alerts";
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Event>(
-      stream: FirebaseDatabase.instance.reference().child("alerts").onValue,
+      stream: FirebaseDatabase.instance.reference().child(AlertTopic).onValue,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return LinearProgressIndicator();
@@ -58,7 +60,7 @@ class _ClientAlertScreenState extends State<ClientAlertScreen> {
 
   @override
   void initState() {
-    FirebaseDatabase.instance.reference().child("alerts");
+    FirebaseDatabase.instance.reference().child(AlertTopic);
     super.initState();
   }
 
@@ -82,7 +84,7 @@ class _ClientAlertScreenState extends State<ClientAlertScreen> {
   void _onDeleteAlert(String user) async {
     await FirebaseDatabase.instance
         .reference()
-        .child("alerts")
+        .child(AlertTopic)
         .child(user)
         .set(null);
   }
